@@ -46,3 +46,18 @@ DispatchQueue is used to manage the concurrent execution of tasks, abstracting a
 By default, this method relies on the constraints of the view to dictate the size and position of any subviews
 We can override this to achieve a custom layout for for subviews
 we should not call this method directly. 
+
+# @escaping closure
+Because a closure can capture variables/objects of the enclosing func, they should be retained even after the func has returned. 
+The compiler will retain the capture variables/objects until the closure is deallocated.
+
+# Capture List
+Closure implicitly captures a **strong reference** to a variable/object from the outside
+When we explicitly define a capture list, the closure captures the **underlying value** of the variable and treat it as a **let**
+
+# Serial queue suspend() and resume()
+
+We can tell a serial queue to stop dispatching its work item to the thread pool by calling **queue.suspend()**
+Likewise, we can tell the queue to continue after suspending by calling **queue.resume()**
+
+

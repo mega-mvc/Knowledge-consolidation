@@ -60,4 +60,30 @@ When we explicitly define a capture list, the closure captures the **underlying 
 We can tell a serial queue to stop dispatching its work item to the thread pool by calling **queue.suspend()**
 Likewise, we can tell the queue to continue after suspending by calling **queue.resume()**
 
+# struct vs class
+## Struct
+- Value type
+- No retain cycle
+- Stored in stack, less memory cost due to refCount and refType memory slot
+- No inheritance. 
+=> **Better performance** (guaranteed static dispatch, no refCount, stored in stack)
+
+## class
+- Reference type
+- Stored in heap, more cost
+- Can inherit
+- Can have dynamic dispatch (slower performance)
+
+# Message dispatching in Swift
+## Static
+- The compiler can determine the execution (binary) code at **compile time**
+- Value types **all use static dispatch** (because it cannot be inherited)
+- Extension methods are **generally static dispatch** (except that it's declared with **@objc inside a class extension**)
+## Dynamic
+- The system can only determine the correct implementation **at run time**.
+- In case of table lookup, the virtual table is constructed **at compile time**. 
+- In case of message dispatch, the the method/message is send to the object, then it tries to look for the implementation of the message up the class hierarchy
+- The message dispatch table **can be modified at runtime**
+
+
 

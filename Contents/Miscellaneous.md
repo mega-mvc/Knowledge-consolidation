@@ -7,8 +7,11 @@ Calling **P.init() is equivalent to P.self.init()**. P.init() is the shorthand s
 
 # Objc memory management
 When you create an object, it has a retain count of 1.
+
 When you send an object a retain message, its retain count is incremented by 1.
+
 When you send an object a release message, its retain count is decremented by 1.
+
 When you send an object a autorelease message, its retain count is decremented by 1 at the end of the current autorelease pool block.
 
 If an object’s retain count is reduced to zero, it is deallocated.

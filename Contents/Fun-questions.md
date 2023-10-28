@@ -85,5 +85,7 @@ Likewise, we can tell the queue to continue after suspending by calling **queue.
 - In case of message dispatch, the the method/message is send to the object, then it tries to look for the implementation of the message up the class hierarchy
 - The message dispatch table **can be modified at runtime**
 
-
+# load() vs initialize()
+**+ load()**: called _before main()._ When app is launched, load() is called for every objc class or category. 
+**+ initialized()**: invoked at first call to the class or an instance of the class 
 

@@ -89,3 +89,24 @@ Likewise, we can tell the queue to continue after suspending by calling **queue.
 **+ load()**: called _before main()._ When app is launched, load() is called for every objc class or category. 
 **+ initialized()**: invoked at first call to the class or an instance of the class 
 
+# Opaque type and boxed type
+## Opaque type
+This is an advancement in Swift compiler. In the past, the compiler always need to know the exact type of a value in the code. This caused a limitation in abstracting associated-typed protocol. But now it is possible with some and any
+
+Opaque is like the reversed of Generics. While Generics required that the concrete type be specified at call time, opaque type (some) hides that from the caller. This provides better abstraction, but less type guarranty.
+
+For a function `func foo() -> some P`. The compiler guarrantees that every call to this function will always return the same underlying type. 
+
+**Example**: 
+```
+var a: some P = A() 
+var b: some P = B() 
+a = b // Error: Because compiler sees a and a are from 2 different types.
+```
+
+** Important Note**: Opaque type IS NOT the same as [opaque parameter](https://github.com/apple/swift-evolution/blob/main/proposals/0341-opaque-parameters.md). Opaque parameter is simply a syntactic sugar for generic parameters in function signature and has nothing to do with opaque type.
+
+## Existential or Boxed type
+[Existential type](https://www.hackingwithswift.com/swift/5.6/existential-any)  
+
+

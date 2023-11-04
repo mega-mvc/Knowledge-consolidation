@@ -53,6 +53,7 @@ A wrapper with the same interface with the wrapped object to extend its function
 
 # Facade  
 Offer a simple interface for complex subsystems behind it. 
+
 **Example**: A Repository whose responsible is to fetch data using this logic: If data is already in the persistent store -> Return the data immediately, otherwise request the network -> Save the data to persistent store -> Return the data to caller. 
 
 

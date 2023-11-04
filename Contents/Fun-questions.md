@@ -101,3 +101,9 @@ Likewise, we can tell the queue to continue after suspending by calling **queue.
 - **Build time is faster** because it doesn't have to rebuild the libs if there aren't any change.
 **Note: There's no such thing as "re-use dynamic library"in iOS**, the dynamic libs are shipped with the app bundle and are used exclusively in the app, not shared by multiple apps. 
 Only **system dynamic frameworks** (UIKit, Foundation) are optimizedly shared across apps
+
+# Practical tips
+Good practice for debug build: 
+- Use linker flag: -all_loads, -dead_strip. -no_exported_symbols. 
+- Enable dead stripping
+

@@ -26,6 +26,9 @@ If an object’s retain count is reduced to zero, it is deallocated.
 - Lightweight object that is optimized for drawing visual content and animation
 - Doesn't handle event
 
+## Practical tips
+- For optimized performance, avoid updating view's frame/constraint for UI update, use `transform` would be a better option.
+
 # Runloop vs DispatchQueue
 ## Runloop
 A mechanism that manage events, timer and async tasks in event-driven programming. 
@@ -55,6 +58,10 @@ The compiler will retain the capture variables/objects until the closure is deal
 Closure implicitly captures a **strong reference** to a variable/object from the outside
 When we explicitly define a capture list, the closure captures the **underlying value** of the variable and treat it as a **let**
 
+## Practical tips:
+- Always use `[weak self]` inside closure (Use Swiftlint to enforce this)
+- If closure is **NOT** escaping. *DO NOT* declare it as `@escaping` 
+
 # Serial queue suspend() and resume()
 
 We can tell a serial queue to stop dispatching its work item to the thread pool by calling **queue.suspend()**
@@ -64,7 +71,7 @@ Likewise, we can tell the queue to continue after suspending by calling **queue.
 ## Struct
 - Value type
 - No retain cycle
-- Stored in stack, less memory cost due to refCount and refType memory slot
+- Stored in stack, **less memory cost compared to class due to refCount and refType** memory slot
 - No inheritance. 
 => **Better performance** (guaranteed static dispatch, no refCount, stored in stack)
 
@@ -73,6 +80,10 @@ Likewise, we can tell the queue to continue after suspending by calling **queue.
 - Stored in heap, more cost
 - Can inherit
 - Can have dynamic dispatch (slower performance)
+
+## Practical tips
+- Always use struct as much as possible
+- Avoid nesting class variable inside a struct
 
 # Message dispatching in Swift
 ## Static

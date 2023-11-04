@@ -89,24 +89,15 @@ Likewise, we can tell the queue to continue after suspending by calling **queue.
 **+ load()**: called _before main()._ When app is launched, load() is called for every objc class or category. 
 **+ initialized()**: invoked at first call to the class or an instance of the class 
 
-# Opaque type and boxed type
-## Opaque type
-This is an advancement in Swift compiler. In the past, the compiler always need to know the exact type of a value in the code. This caused a limitation in abstracting associated-typed protocol. But now it is possible with some and any
-
-Opaque is like the reversed of Generics. While Generics required that the concrete type be specified at call time, opaque type (some) hides that from the caller. This provides better abstraction, but less type guarranty.
-
-For a function `func foo() -> some P`. The compiler guarrantees that every call to this function will always return the same underlying type. 
-
-**Example**: 
-```
-var a: some P = A() 
-var b: some P = B() 
-a = b // Error: Because compiler sees a and a are from 2 different types.
-```
-
-** Important Note**: Opaque type IS NOT the same as [opaque parameter](https://github.com/apple/swift-evolution/blob/main/proposals/0341-opaque-parameters.md). Opaque parameter is simply a syntactic sugar for generic parameters in function signature and has nothing to do with opaque type.
-
-## Existential or Boxed type
-[Existential type](https://www.hackingwithswift.com/swift/5.6/existential-any)  
-
-
+# dynamic linking vs static linking
+## Static linking
+- Libs are linked directly into the app at build time.
+- App **size is bigger** but launch **time is faster** (thanks to avoidance of dynamic linking steps at app launch)
+- **Build time is slower** because compiler need to re-build the binary when there are file changes.
+- **Note: Static linker is smart**, it only load symbols that are used by the app (dead-stripping)
+## Dynamic linking: 
+- The libs are archived into .dylib, and loaded at runtime.
+- Executable **size is smaller**, but launch **time is longer**
+- **Build time is faster** because it doesn't have to rebuild the libs if there aren't any change.
+**Note: There's no such thing as "re-use dynamic library"in iOS**, the dynamic libs are shipped with the app bundle and are used exclusively in the app, not shared by multiple apps. 
+Only **system dynamic frameworks** (UIKit, Foundation) are optimizedly shared across apps
